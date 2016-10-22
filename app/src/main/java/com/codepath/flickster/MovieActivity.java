@@ -3,7 +3,6 @@ package com.codepath.flickster;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -60,9 +59,6 @@ public class MovieActivity extends AppCompatActivity {
                 try {
                     JSONArray movieJson = response.getJSONArray("results");
                     movies = Movie.fromJson(movieJson);
-                    for (int i = 0; i < movies.size(); ++i) {
-                        Log.d("posterUrl", movies.get(i).getPosterUrl());
-                    }
                     if (adapter != null) {
                         adapter.clear();
                         adapter.addAll(movies);

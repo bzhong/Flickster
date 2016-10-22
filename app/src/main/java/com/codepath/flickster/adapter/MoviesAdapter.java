@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.codepath.flickster.R;
@@ -15,14 +16,18 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+
 public class MoviesAdapter extends ArrayAdapter<Movie> {
     private final String imageBaseUrl = "https://image.tmdb.org/t/p/w500";
+    ProgressBar progressBar;
 
     // View lookup cache
     private static class ViewHolder {
         ImageView poster;
         TextView title;
         TextView overview;
+        ProgressBar progressBar;
     }
 
     public MoviesAdapter(Context context, ArrayList<Movie> movies) {
@@ -43,6 +48,7 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
             viewHolder.title = (TextView) convertView.findViewById(R.id.title);
             viewHolder.overview = (TextView) convertView.findViewById(R.id.overview);
             viewHolder.poster = (ImageView) convertView.findViewById(R.id.poster);
+            viewHolder.progressBar = (ProgressBar) convertView.findViewById(R.id.progressBar);
             // Cache the viewHolder object inside the fresh view
             convertView.setTag(viewHolder);
         } else {
@@ -50,16 +56,39 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
             viewHolder = (ViewHolder) convertView.getTag();
 
         }
+        setViewHolder(viewHolder, movie);
+        // Return the completed view to render on screen
+        return convertView;
+    }
+
+    private void setViewHolder(ViewHolder viewHolder, Movie movie) {
         // Populate the data into the template view using the data object
         viewHolder.title.setText(movie.getTitle());
         viewHolder.overview.setText(movie.getOverview());
+
+        // Add progress bar
+        final ProgressBar progressBar = viewHolder.progressBar;
+        progressBar.setVisibility(View.VISIBLE);
+//        viewHolder.progressBar.setVisibility(View.VISIBLE);
         Picasso.with(getContext()).
                 load(imageBaseUrl + getImageUrl(movie)).
                 fit().
+                centerInside().
+                transform(new RoundedCornersTransformation(20, 20)).
                 placeholder(R.drawable.placeholder).
-                into(viewHolder.poster);
-        // Return the completed view to render on screen
-        return convertView;
+                into(viewHolder.poster, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        if (progressBar != null) {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
     }
 
     private String getImageUrl(Movie movie) {
