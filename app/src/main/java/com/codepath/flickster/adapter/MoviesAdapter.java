@@ -43,20 +43,21 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
             viewHolder.title = (TextView) convertView.findViewById(R.id.title);
             viewHolder.overview = (TextView) convertView.findViewById(R.id.overview);
             viewHolder.poster = (ImageView) convertView.findViewById(R.id.poster);
-            Picasso.with(getContext()).
-                    load(imageBaseUrl + getImageUrl(movie)).
-                    fit().
-                    placeholder(R.drawable.placeholder).
-                    into(viewHolder.poster);
             // Cache the viewHolder object inside the fresh view
             convertView.setTag(viewHolder);
         } else {
             // View is being recycled, retrieve the viewHolder object from tag
             viewHolder = (ViewHolder) convertView.getTag();
+
         }
         // Populate the data into the template view using the data object
         viewHolder.title.setText(movie.getTitle());
         viewHolder.overview.setText(movie.getOverview());
+        Picasso.with(getContext()).
+                load(imageBaseUrl + getImageUrl(movie)).
+                fit().
+                placeholder(R.drawable.placeholder).
+                into(viewHolder.poster);
         // Return the completed view to render on screen
         return convertView;
     }
