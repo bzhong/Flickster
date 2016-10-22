@@ -12,6 +12,13 @@ public class Movie {
     private String posterUrl;
     private String backdropUrl;
     private String overview;
+    private double populatiry;
+    private double avgScore;
+    private MovieTypes type;
+
+    public enum MovieTypes {
+        HIGH_SCORE, LOW_SCORE
+    }
 
     public static Movie fromJson(JSONObject jsonObject) {
         Movie movie = new Movie();
@@ -21,6 +28,13 @@ public class Movie {
             movie.posterUrl = jsonObject.getString("poster_path");
             movie.backdropUrl = jsonObject.getString("backdrop_path");
             movie.overview = jsonObject.getString("overview");
+            movie.populatiry = Double.parseDouble(jsonObject.getString("popularity"));
+            movie.avgScore = Double.parseDouble(jsonObject.getString("vote_average"));
+            if (movie.avgScore > 5) {
+                movie.type = MovieTypes.HIGH_SCORE;
+            } else {
+                movie.type = MovieTypes.LOW_SCORE;
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -66,5 +80,17 @@ public class Movie {
 
     public String getOverview() {
         return this.overview;
+    }
+
+    public double getPopularity() {
+        return this.populatiry;
+    }
+
+    public double getAvgScore() {
+        return this.avgScore;
+    }
+
+    public MovieTypes getType() {
+        return this.type;
     }
 }

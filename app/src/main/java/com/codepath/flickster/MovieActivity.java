@@ -35,12 +35,7 @@ public class MovieActivity extends AppCompatActivity {
 
         lv = (ListView) findViewById(R.id.lvMovies);
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                fetchMovies();
-            }
-        });
+        swipeContainer.setOnRefreshListener(this::fetchMovies);
         // Configure the refreshing colors
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
