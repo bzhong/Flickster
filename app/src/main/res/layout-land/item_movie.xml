@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/image">
 
         <ImageView
-            android:layout_width="450dp"
+            style="@style/PosterWidthInLandscapeMode"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -24,22 +25,25 @@
             android:id="@+id/progressBar" />
     </RelativeLayout>
 
-    <LinearLayout android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image"
+        android:layout_centerVertical="true">
+
         <TextView
             android:text="title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="#FFFFFF"
-            android:id="@+id/title" />
+            android:id="@+id/title"
+            style="@style/Title" />
 
         <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#D8D8D8"
+            android:textColor="@color/colorGrey"
+            android:layout_below="@+id/title"
             android:id="@+id/overview" />
-    </LinearLayout>
-
-</LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

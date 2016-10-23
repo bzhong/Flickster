@@ -19,8 +19,7 @@ import java.util.ArrayList;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class MoviesAdapter extends ArrayAdapter<Movie> {
-    private final String imageBaseUrl = "https://image.tmdb.org/t/p/w500";
-    ProgressBar progressBar;
+    private final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
     // View lookup cache
     private static class HighScoreMovieViewHolder {
@@ -88,7 +87,7 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
         final ProgressBar progressBar = viewHolder.progressBar;
         progressBar.setVisibility(View.VISIBLE);
         Picasso.with(getContext()).
-                load(imageBaseUrl + getImageUrl(movie)).
+                load(IMAGE_BASE_URL + getImageUrl(movie)).
                 fit().
                 centerInside().
                 transform(new RoundedCornersTransformation(20, 20)).
@@ -141,7 +140,7 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
         final ProgressBar progressBar = viewHolder.progressBar;
         progressBar.setVisibility(View.VISIBLE);
         Picasso.with(getContext()).
-                load(imageBaseUrl + getImageUrl(movie)).
+                load(IMAGE_BASE_URL + getImageUrl(movie)).
                 fit().
                 centerInside().
                 transform(new RoundedCornersTransformation(20, 20)).

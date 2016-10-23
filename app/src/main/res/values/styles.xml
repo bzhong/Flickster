@@ -8,4 +8,24 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="PosterWidthInPortraitMode">
+        <item name="android:layout_width">250dp</item>
+    </style>
+
+    <style name="PosterWidthInLandscapeMode">
+        <item name="android:layout_width">450dp</item>
+    </style>
+
+    <style name="Title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textStyle">normal|bold</item>
+    </style>
+
+    <style name="DetailTitle">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textStyle">normal|bold</item>
+    </style>
+
 </resources>

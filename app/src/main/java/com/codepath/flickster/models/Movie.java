@@ -7,13 +7,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class Movie {
-    private String id;
+    private int id;
     private String title;
     private String posterUrl;
     private String backdropUrl;
     private String overview;
     private double populatiry;
     private double avgScore;
+    private String releaseDate;
     private MovieTypes type;
 
     public enum MovieTypes {
@@ -23,12 +24,13 @@ public class Movie {
     public static Movie fromJson(JSONObject jsonObject) {
         Movie movie = new Movie();
         try {
-            movie.id = jsonObject.getString("id");
+            movie.id = Integer.parseInt(jsonObject.getString("id"));
             movie.title = jsonObject.getString("title");
             movie.posterUrl = jsonObject.getString("poster_path");
             movie.backdropUrl = jsonObject.getString("backdrop_path");
             movie.overview = jsonObject.getString("overview");
             movie.populatiry = Double.parseDouble(jsonObject.getString("popularity"));
+            movie.releaseDate = jsonObject.getString("release_date");
             movie.avgScore = Double.parseDouble(jsonObject.getString("vote_average"));
             if (movie.avgScore > 5) {
                 movie.type = MovieTypes.HIGH_SCORE;
@@ -62,7 +64,7 @@ public class Movie {
         return movies;
     }
 
-    public String getId() {
+    public int getId() {
         return this.id;
     }
 
@@ -92,5 +94,9 @@ public class Movie {
 
     public MovieTypes getType() {
         return this.type;
+    }
+
+    public String getReleaseDate() {
+        return this.releaseDate;
     }
 }
