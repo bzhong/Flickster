@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -29,11 +31,11 @@ import okhttp3.Response;
 
 public class DetailActivity extends AppCompatActivity {
     VideoView videoView;
-    ImageView backdropImage;
-    TextView title;
-    TextView releaseDate;
-    TextView overview;
-    RatingBar ratingBar;
+    @BindView(R.id.backdrop) ImageView backdropImage;
+    @BindView(R.id.title) TextView title;
+    @BindView(R.id.releaseDate) TextView releaseDate;
+    @BindView(R.id.overview) TextView overview;
+    @BindView(R.id.ratingBar) RatingBar ratingBar;
     Movie movie;
 
     OkHttpClient client;
@@ -46,15 +48,9 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        ButterKnife.bind(this);
 
         client = new OkHttpClient();
-
-        backdropImage = (ImageView) findViewById(R.id.backdrop);
-        title = (TextView) findViewById(R.id.title);
-        releaseDate = (TextView) findViewById(R.id.releaseDate);
-        overview = (TextView) findViewById(R.id.overview);
-        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-
         fetchMovieDetail(getIntent().getIntExtra("movieId", -1));
     }
 

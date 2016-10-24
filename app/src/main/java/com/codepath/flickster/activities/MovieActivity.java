@@ -22,6 +22,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 import cz.msebera.android.httpclient.Header;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -31,23 +34,24 @@ import okhttp3.Response;
 
 public class MovieActivity extends AppCompatActivity {
     ArrayList<Movie> movies;
-    ListView lv;
+    @BindView(R.id.lvMovies) ListView lv;
+    @BindView(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
     MoviesAdapter adapter;
     OkHttpClient client;
+//    private ActivityMovieBinding binding;
 
-    private SwipeRefreshLayout swipeContainer;
     private final String MOVIE_INDEX_URL =
             "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        binding = DataBindingUtil.setContentView(this, R.layout.activity_movie);
         setContentView(R.layout.activity_movie);
+        ButterKnife.bind(this);
 
         client = new OkHttpClient();
-        lv = (ListView) findViewById(R.id.lvMovies);
-        setupListViewListener();
-        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+//        setupListViewListener();
         swipeContainer.setOnRefreshListener(this::fetchMovies);
         // Configure the refreshing colors
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -141,6 +145,11 @@ public class MovieActivity extends AppCompatActivity {
                 openDetailActivity(i);
             }
         });
+    }
+
+    @OnItemClick(R.id.lvMovies)
+    public void openMovieDetail(AdapterView<?> adapterView, View view, int i, long l) {
+        openDetailActivity(i);
     }
 
     private void openDetailActivity(int pos) {

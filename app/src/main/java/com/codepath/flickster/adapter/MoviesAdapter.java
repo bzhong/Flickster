@@ -16,24 +16,32 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class MoviesAdapter extends ArrayAdapter<Movie> {
     private final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
     // View lookup cache
-    private static class HighScoreMovieViewHolder {
-        ImageView poster;
-        TextView title;
-        TextView overview;
-        ProgressBar progressBar;
+    static class HighScoreMovieViewHolder {
+        @BindView(R.id.poster) ImageView poster;
+        @BindView(R.id.progressBar) ProgressBar progressBar;
+
+        public HighScoreMovieViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 
-    private static class LowScoreMovieViewHolder {
-        ImageView poster;
-        TextView title;
-        TextView overview;
-        ProgressBar progressBar;
+    static class LowScoreMovieViewHolder {
+        @BindView(R.id.poster) ImageView poster;
+        @BindView(R.id.title) TextView title;
+        @BindView(R.id.overview) TextView overview;
+        @BindView(R.id.progressBar) ProgressBar progressBar;
+
+        public LowScoreMovieViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 
     @Override
@@ -65,12 +73,9 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
         HighScoreMovieViewHolder viewHolder;
         if (convertView == null) {
             // If there's no view to re-use, inflate a brand new view for row
-            viewHolder = new HighScoreMovieViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_full_backdrop, parent, false);
-            viewHolder.poster = (ImageView) convertView.findViewById(R.id.poster);
-            viewHolder.progressBar = (ProgressBar) convertView.findViewById(R.id.progressBar);
-            // Cache the viewHolder object inside the fresh view
+            viewHolder = new HighScoreMovieViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
             // View is being recycled, retrieve the viewHolder object from tag
@@ -112,14 +117,9 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
         LowScoreMovieViewHolder viewHolder;
         if (convertView == null) {
             // If there's no view to re-use, inflate a brand new view for row
-            viewHolder = new LowScoreMovieViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_movie, parent, false);
-            viewHolder.title = (TextView) convertView.findViewById(R.id.title);
-            viewHolder.overview = (TextView) convertView.findViewById(R.id.overview);
-            viewHolder.poster = (ImageView) convertView.findViewById(R.id.poster);
-            viewHolder.progressBar = (ProgressBar) convertView.findViewById(R.id.progressBar);
-            // Cache the viewHolder object inside the fresh view
+            viewHolder = new LowScoreMovieViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
             // View is being recycled, retrieve the viewHolder object from tag
