@@ -12,8 +12,8 @@ public class Movie {
     private String posterUrl;
     private String backdropUrl;
     private String overview;
-    private double populatiry;
-    private double avgScore;
+    private float populatiry;
+    private float avgScore;
     private String releaseDate;
     private MovieTypes type;
 
@@ -29,9 +29,9 @@ public class Movie {
             movie.posterUrl = jsonObject.getString("poster_path");
             movie.backdropUrl = jsonObject.getString("backdrop_path");
             movie.overview = jsonObject.getString("overview");
-            movie.populatiry = Double.parseDouble(jsonObject.getString("popularity"));
+            movie.populatiry = Float.parseFloat(jsonObject.getString("popularity"));
             movie.releaseDate = jsonObject.getString("release_date");
-            movie.avgScore = Double.parseDouble(jsonObject.getString("vote_average"));
+            movie.avgScore = Float.parseFloat(jsonObject.getString("vote_average"));
             if (movie.avgScore > 5) {
                 movie.type = MovieTypes.HIGH_SCORE;
             } else {
@@ -84,11 +84,11 @@ public class Movie {
         return this.overview;
     }
 
-    public double getPopularity() {
+    public float getPopularity() {
         return this.populatiry;
     }
 
-    public double getAvgScore() {
+    public float getAvgScore() {
         return this.avgScore;
     }
 

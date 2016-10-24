@@ -1,5 +1,6 @@
 package com.codepath.flickster.activities;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.codepath.flickster.R;
+import com.codepath.flickster.databinding.ActivityDetailBinding;
 import com.codepath.flickster.models.Movie;
 import com.squareup.picasso.Picasso;
 
@@ -39,6 +41,7 @@ public class DetailActivity extends AppCompatActivity {
     Movie movie;
 
     OkHttpClient client;
+    private ActivityDetailBinding binding;
 
     private final String MOVIE_DETAIL_URL = "https://api.themoviedb.org/3/movie";
     private final String API_KEY = "a07e22bc18f5cb106bfe4cc1f83ad8ed";
@@ -47,7 +50,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
         ButterKnife.bind(this);
 
         client = new OkHttpClient();
@@ -85,10 +88,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void renderMovieDetail(Movie movie) {
-        title.setText(movie.getTitle());
-        releaseDate.setText(movie.getReleaseDate());
-        overview.setText(movie.getOverview());
-        ratingBar.setRating(getRating(movie));
+        binding.setMovie(movie);
 
         Picasso.with(DetailActivity.this).
                 load(IMAGE_BASE_URL + movie.getBackdropUrl()).

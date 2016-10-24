@@ -1,53 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
+    <data>
+        <variable name="movie" type="com.codepath.flickster.models.Movie"/>
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/backdrop" />
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/backdrop"
-        android:layout_below="@+id/backdrop"
-        style="@style/DetailTitle"
-        android:id="@+id/title" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/backdrop" />
 
-    <TextView
-        android:text="Release Date: "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/title"
-        android:layout_below="@+id/title"
-        android:id="@+id/releaseDateText" />
+        <TextView
+            android:text="@{movie.title}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/backdrop"
+            android:layout_below="@+id/backdrop"
+            style="@style/DetailTitle"
+            android:id="@+id/title" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/releaseDateText"
-        android:layout_below="@+id/title"
-        android:textColor="@color/colorGrey"
-        android:id="@+id/releaseDate" />
+        <TextView
+            android:text="Release Date: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/title"
+            android:layout_below="@+id/title"
+            android:id="@+id/releaseDateText" />
 
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/releaseDateText"
-        android:layout_alignLeft="@+id/releaseDateText"
-        android:numStars="5"
-        android:isIndicator="true"
-        android:id="@+id/ratingBar" />
+        <TextView
+            android:text="@{movie.releaseDate}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/releaseDateText"
+            android:layout_below="@+id/title"
+            android:textColor="@color/colorGrey"
+            android:id="@+id/releaseDate" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:layout_alignLeft="@+id/ratingBar"
-        android:layout_below="@+id/ratingBar"
-        android:id="@+id/overview" />
-</RelativeLayout>
+        <RatingBar
+            android:rating="@{movie.avgScore}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/releaseDateText"
+            android:layout_alignLeft="@+id/releaseDateText"
+            android:numStars="5"
+            android:isIndicator="true"
+            android:id="@+id/ratingBar" />
+
+        <TextView
+            android:text="@{movie.overview}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:layout_alignLeft="@+id/ratingBar"
+            android:layout_below="@+id/ratingBar"
+            android:id="@+id/overview" />
+    </RelativeLayout>
+</layout>

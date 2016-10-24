@@ -2,6 +2,7 @@ package com.codepath.flickster.adapter;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.databinding.library.baseAdapters.BR;
 import com.codepath.flickster.R;
+import com.codepath.flickster.databinding.ItemMovieBinding;
 import com.codepath.flickster.models.Movie;
 import com.squareup.picasso.Picasso;
 
@@ -39,8 +42,15 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
         @BindView(R.id.overview) TextView overview;
         @BindView(R.id.progressBar) ProgressBar progressBar;
 
+        private ItemMovieBinding binding;
+
         public LowScoreMovieViewHolder(View view) {
             ButterKnife.bind(this, view);
+            binding = DataBindingUtil.bind(view);
+        }
+
+        public ItemMovieBinding getBinding() {
+            return binding;
         }
     }
 
@@ -133,8 +143,7 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
 
     private void setLowScoreViewHolder(LowScoreMovieViewHolder viewHolder, Movie movie) {
         // Populate the data into the template view using the data object
-        viewHolder.title.setText(movie.getTitle());
-        viewHolder.overview.setText(movie.getOverview());
+        viewHolder.getBinding().setVariable(BR.movie, movie);
 
         // Add progress bar
         final ProgressBar progressBar = viewHolder.progressBar;
